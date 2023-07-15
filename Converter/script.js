@@ -14,20 +14,20 @@ mic_icon.addEventListener('click', function () {
             .map(result => result[0])
             .map(result => result.transcript)
         convert_textarea.innerHTML = transcript;
-        mic_icon.src = './Resources/mute.png'
+        mic_icon.src = './Assets/mute.png'
     })
 
 
     recognition.addEventListener('end', () => {
         if (convert_textarea.textContent.trim() === '') {
             convert_textarea.textContent = "No speech detected. Please try again.";
-            mic_icon.src = './Resources/mute.png'
+            mic_icon.src = './Assets/mute.png'
         }
     })
 
     if (speech == true) {
         recognition.start();
-        mic_icon.src = './Resources/unmute.png'
+        mic_icon.src = './Assets/unmute.png'
     }
 
 
