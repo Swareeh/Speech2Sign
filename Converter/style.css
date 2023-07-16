@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+}
+
+
+body {
+    background-image: url('./Assets/bg.jpg');
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+}
+
+#input_textarea {
+    font-size: 20px;
+    position: absolute;
+    bottom: 200px;
+    left: 50px;
+    height: 300px;
+    width: 500px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+}
+
+#mic_icon {
+    position: absolute;
+    top: 500px;
+    left: 250px;
+}
+
+#mic_icon:hover {
+    cursor: pointer;
+}
+
+#output {
+    font-size: 20px;
+    position: absolute;
+    bottom: 200px;
+    left: 800px;
+    height: 300px;
+    width: 500px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+}
+
+#convert_btn {
+    position: absolute;
+    top: 500px;
+    left: 1000px;
+}
+
+
+.credits {
+    position: absolute;
+    top: 625px;
+    left: 425px;
+}
