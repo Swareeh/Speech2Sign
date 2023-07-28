@@ -1,3 +1,6 @@
+/* Importing Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 * {
     margin: 0;
 }
@@ -7,6 +10,13 @@ body {
     background-image: url('./Assets/bg.jpg');
     color: white;
 }
+
+.logo {
+    position: relative;
+    left: 450px;
+    height: 150px;
+}
+
 
 h1 {
     text-align: center;
@@ -48,13 +58,31 @@ h1 {
 }
 
 #convert_btn {
+    border-radius: 10px;
+    border: 1px solid white;
+    font-size: 15px;
+    padding: 10px 20px 10px 20px;
+    color: white;
+    background-color: #004C74;
     position: absolute;
-    top: 500px;
+    top: 515px;
     left: 1000px;
+}
+
+#convert_btn:hover {
+    background-color: #004C74;
+    background: #D93760;
+
+    color: #FFE6D7;
+    /* border: 1px solid black; */
+    cursor: pointer;
 }
 
 
 .credits {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    opacity: 75%;
     position: absolute;
     top: 625px;
     left: 425px;
