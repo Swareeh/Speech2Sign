@@ -11,23 +11,41 @@ body {
     color: white;
 }
 
-.logo {
-    position: relative;
-    left: 450px;
+.div_logo {
+    display: flex;
+    justify-content: center;
+}
+
+.div_logo img {
     height: 150px;
 }
 
+.main_div {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    position: relative;
+    top: 5vh;
+}
 
-h1 {
-    text-align: center;
-    font-size: 50px;
+.div_1,
+.div_2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.div_1-2 {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 #input_textarea {
     font-size: 20px;
-    position: absolute;
-    bottom: 200px;
-    left: 50px;
     height: 300px;
     width: 500px;
     border-radius: 10px;
@@ -36,9 +54,9 @@ h1 {
 }
 
 #mic_icon {
-    position: absolute;
-    top: 500px;
-    left: 250px;
+    display: flex;
+    height: 75px;
+    width: 75px;
 }
 
 #mic_icon:hover {
@@ -46,15 +64,15 @@ h1 {
 }
 
 #output {
+    display: none;
     font-size: 20px;
-    position: absolute;
-    bottom: 200px;
-    left: 800px;
     height: 300px;
     width: 500px;
     border-radius: 10px;
     border: none;
     resize: none;
+    transition: 0.5s;
+    clear: both;
 }
 
 #convert_btn {
@@ -64,17 +82,13 @@ h1 {
     padding: 10px 20px 10px 20px;
     color: white;
     background-color: #004C74;
-    position: absolute;
-    top: 515px;
-    left: 1000px;
+    height: 39px;
 }
 
 #convert_btn:hover {
     background-color: #004C74;
     background: #D93760;
-
     color: #FFE6D7;
-    /* border: 1px solid black; */
     cursor: pointer;
 }
 
@@ -83,7 +97,7 @@ h1 {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
     opacity: 75%;
-    position: absolute;
-    top: 625px;
-    left: 425px;
+    text-align: center;
+    position: relative;
+    top: 75px;
 }
