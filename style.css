@@ -7,6 +7,8 @@
 /* Importing Open Sans */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+/* Desktop Responsive */
+
 * {
     margin: 0;
     scroll-behavior: smooth;
@@ -30,8 +32,27 @@ body {
     scroll-behavior: smooth;
 }
 
-header {
-    display: flex;
+#main_div-1 {
+    height: 100vh;
+}
+
+#menu_brgr {
+    position: absolute;
+    top: 30px;
+    right: 1rem;
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 21px;
+    width: 30px;
+}
+
+.bar {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
 }
 
 ul {
@@ -93,10 +114,6 @@ video {
     color: black;
     border: 1px solid #1A0848;
     cursor: pointer;
-}
-
-#main_div-1 {
-    height: 100vh;
 }
 
 #main_div-2 {
@@ -186,5 +203,79 @@ video {
     font-weight: lighter;
     font-size: 15px;
     opacity: 75%;
+
+}
+
+/* Tablet Responsive */
+
+/* Mobile Responsive */
+
+@media only screen and (orientation: portrait) and (min-width: 320px) and (max-width: 428px) {
+
+    body {
+        background-image: url('./Resources/bg.jpg');
+    }
+
+    #menu_brgr {
+        position: fixed;
+        display: flex;
+        z-index: 2;
+    }
+
+    #nav_connections {
+        position: fixed;
+        left: 450px;
+        transition: 1s;
+        background-color: #022135;
+        height: 100vh;
+        width: 100%;
+        text-align: center;
+        margin: 0px;
+        z-index: 1;
+    }
+
+    ul {
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+        left: 0px;
+        top: 300px;
+        padding: 0px 0px 0px 0px;
+        text-align: center;
+    }
+
+    li {
+        text-align: center;
+        margin: 0px;
+        padding-left: 0;
+    }
+
+    video {
+        display: none;
+    }
+
+    .main_div-discover {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 85vh;
+    }
+
+
+    .branding {
+        position: static;
+        top: 0px;
+        left: 0px;
+        height: auto;
+        width: 100%;
+    }
+
+    .discover_btn {
+        position: static;
+        top: 0px;
+        right: 0px;
+    }
 
 }
