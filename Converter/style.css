@@ -101,3 +101,32 @@ body {
     position: relative;
     top: 75px;
 }
+
+/* Mobile Responsive */
+
+@media only screen and (min-width: 320px) and (max-width: 428px) {
+
+    .div_logo img {
+        height: 125px;
+    }
+
+    .main_div {
+        display: flex;
+        flex-direction: column;
+        top: 0vh;
+    }
+
+    #input_textarea {
+        height: 250px;
+        width: 100%;
+    }
+
+    #output {
+        height: auto;
+        width: 100%;
+    }
+
+    .credits {
+        top: 25px;
+    }
+}
