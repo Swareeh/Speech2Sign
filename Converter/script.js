@@ -1,45 +1,14 @@
 const mic_icon = document.getElementById("mic_icon")
-const input_textarea = document.getElementById("input_textarea")
+const status_text = document.getElementById('status')
 const output = document.getElementById('output')
-const convert_btn = document.getElementById('convert_btn')
+const slider = document.getElementById('slider_div')
+const speech_text = document.getElementById('speech_text')
+const repeat_btn = document.getElementById('repeat_btn')
 
-var converter = false
+const mic_btn = document.getElementById('pulse')
+const pulse_spans = document.querySelectorAll('.pulse_span')
 
-
-mic_icon.addEventListener('click', function () {
-
-    if (converter == true) {
-        alert('Converter is running... You cannot use the mic at this moment...\n[Press OK to Continue]')
-        return
-    }
-
-    var speech = true;
-    window.SpeechRecognition = window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognition.interimResults = true;
-
-    recognition.addEventListener('result', e => {
-        const transcript = Array.from(e.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-        input_textarea.innerHTML = transcript;
-        mic_icon.src = './Assets/mute.png'
-    })
-
-
-    recognition.addEventListener('end', () => {
-        if (input_textarea.textContent.trim() === '') {
-            input_textarea.textContent = "No speech detected. Please try again.";
-            mic_icon.src = './Assets/mute.png'
-        }
-    })
-
-    if (speech == true) {
-        recognition.start();
-        mic_icon.src = './Assets/unmute.png'
-    }
-
-})
+// EXTRA FUNCTIONS FOR THE PROGRAM------------------
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -65,116 +34,164 @@ function fadeOut(elem) {
     elem.style.display = "none";
 }
 
-convert_btn.onclick = async function () {
+// --------------------------------------------
 
-    if (converter == true) {
-        alert('Converter is already running...\n[Press OK to continue]')
-        return
+// BACK BUTTON ----------------------------------------
+const back_btn = document.getElementById('back_btn')
+
+back_btn.addEventListener('click', function () {
+    //For Mobile
+    if (window.screen.width > 320 & window.screen.width < 428) {
+        slider.style.top = '100%'
+        back_btn.style.display = 'none'
     }
 
-    converter = true
-    convert_btn.innerHTML = 'Converter is Active...'
-    convert_btn.style.backgroundColor = 'green';
-    var input_value = document.getElementById('input_textarea').value
-    input_value = input_value.toUpperCase()
+    //For Desktop
+    if (window.screen.width > 769) {
+        slider.style.left = '100%'
+        back_btn.style.display = 'none'
+    }
+
+
+})
+
+// -----------------------------------------------------
+
+// Speech Recognition Function
+
+async function Speech2Text() {
+    var speech = true;
+
+    window.SpeechRecognition = window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+
+    const promise = new Promise((resolve) => {
+        recognition.addEventListener('result', e => {
+            const transcript = Array.from(e.results)
+                .map(result => result[0])
+                .map(result => result.transcript)
+            speech_text.textContent = transcript;
+
+            pulse_spans.forEach((span, index) => {
+                span.style.setProperty('--i', index);
+                span.classList.toggle('listening');
+            })
+
+            mic_icon.src = './Assets/mute2.png';
+            status_text.textContent = 'CLICK TO SPEAK'
+            back_btn.style.display = 'block'
+
+            //For Mobile
+            if (window.screen.width > 320 & window.screen.width < 428) {
+                slider.style.top = '15%'
+            }
+
+            //For Desktop
+            if (window.screen.width > 769) {
+                slider.style.left = '70%'
+                back_btn.style.display = 'block'
+            }
+
+
+        })
+
+        recognition.addEventListener('end', () => {
+            if (speech_text.textContent.trim() === '') {
+                status_text.textContent = 'No speech detected.\n Please try again.'
+
+                pulse_spans.forEach((span, index) => {
+                    span.style.setProperty('--i', index);
+                    span.classList.toggle('listening');
+                })
+
+                mic_icon.src = './Assets/mute2.png'
+            }
+            resolve();
+        })
+
+        if (speech == true) {
+            recognition.start();
+            mic_icon.src = './Assets/unmute2.png'
+            status_text.textContent = 'LISTENING...'
+            pulse_spans.forEach((span, index) => {
+                span.style.setProperty('--i', index);
+                span.classList.toggle('listening');
+            })
+
+        }
+    }) // End of Promise 
+    return promise
+}
+
+//------------------------------------------------------
+
+// Converter Function
+async function converter() {
+
+    console.log('Converter has started')
+
+    var input_value = document.getElementById('speech_text').textContent.toUpperCase()
 
     const input_value_words = input_value.split(' ')
+
 
     for (let i = 0; i < input_value_words.length; i++) {
 
         var word = input_value_words[i]
-        fadeIn(output)
-        if (word == 'YES') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/YES.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
+        // fadeIn(output)
+
+        const dictionary = {
+            'HAPPY': './Assets/Signs/animated/words/HAPPY.gif',
+            'HELLO': './Assets/Signs/animated/words/HELLO.gif',
+            'HI': './Assets/Signs/animated/words/HI.gif',
+            'GIPHY': './Assets/Signs/animated/words/GIPHY.gif',
+            'DEAF': './Assets/Signs/animated/words/DEAF.gif',
+            'NO': './Assets/Signs/animated/words/NO.gif',
+            'AGAIN': './Assets/Signs/animated/words/AGAIN.gif',
+            'KISS': './Assets/Signs/animated/words/KISS.gif',
+            'ME': './Assets/Signs/animated/words/ME.gif',
+            'OKAY': './Assets/Signs/animated/words/OKAY.gif',
+            'OK': './Assets/Signs/animated/words/OKAY.gif',
+            'PLEASE': './Assets/Signs/animated/words/PLEASE.gif',
+            'SORRY': './Assets/Signs/animated/words/SORRY.gif',
+            'YES': './Assets/Signs/animated/words/YES.gif',
+            'YOU': './Assets/Signs/animated/words/YOU.gif',
+            'THANK': './Assets/Signs/animated/words/THANK.gif',
         }
 
-        else if (word == 'LOVE') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/LOVE.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
 
-        else if (word == 'BELIEVE') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/BELIEVE.jpg'
+        if (word in dictionary) {
+            let gif = dictionary[word]
+            output.src = gif
             await delay(1000)
-            output.src = './Assets/white.png'
-        }
+            output.src = './Assets/S2S.png'
 
-        else if (word == 'FRIEND') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/FRIEND.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else if (word == 'BYE') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/BYE.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else if (word == 'FRIENDS') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/FRIENDS.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else if (word == 'INSPIRATION') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/INSPIRATION.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else if (word == 'NO') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/NO.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else if (word == 'PLEASE') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/PLEASE.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else if (word == 'STOP') {
-            // fadeIn(output)
-            output.src = './Assets/Signs/Words/STOP.jpg'
-            await delay(1000)
-            output.src = './Assets/white.png'
-        }
-
-        else {
+        } else {
 
             for (let i = 0; i < word.length; i++) {
 
                 if (word[i] == '.') {
-                    output.src = `./Assets/white.png`
+                    output.src = `./Assets/S2S.png`
                 } else {
-                    output.src = `./Assets/Signs/alphabets/${word[i]}.jpg`
+                    output.src = `./Assets/Signs/animated/${word[i]}.gif`
+                    // output.src = `./TESTS/A-resize.gif`
                 }
-                await delay(600)
+                await delay(1000)
             }
-            output.src = './Assets/white.png'
+            output.src = './Assets/S2S.png'
         }
 
     }
-
-    converter = false
-    fadeOut(output)
-    convert_btn.innerHTML = 'Translate'
-    convert_btn.style.backgroundColor = '#004C74';
-
-
-
 }
+//-----------------------------------------
+
+mic_btn.addEventListener('click', async function () {
+    await Speech2Text()
+    converter()
+})
+
+repeat_btn.addEventListener('click', async function () {
+    converter()
+})
+
